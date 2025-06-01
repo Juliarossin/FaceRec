@@ -1,19 +1,34 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
-import Cadastro from './pages/Cadastro'
-import LoginCard from './pages/login'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Login from './pages/Login';
+import Cadastro from './pages/Cadastro';
+import Home from './pages/Home';
+import MainLayout from './layout/MainLayout';
+
+function AppContent() {
+  const location = useLocation();
+  const isPublicPage = location.pathname === '/' || location.pathname === '/cadastro';
+
+  return (
+    <div className="flex min-h-screen">
+      {!isPublicPage && <MainLayout />}
+      <div className="flex-1 bg-gray-50">
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
-    <>
-     <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginCard />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
+    <Router>
+      <AppContent />
+    </Router>
+  );
 }
 
-export default App
+export default App;
