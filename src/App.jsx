@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 import MainLayout from './layout/MainLayout';
 
 function AppContent() {
@@ -17,6 +18,8 @@ function AppContent() {
           <Route path="/" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+
         </Routes>
       </div>
     </div>

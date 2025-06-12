@@ -20,18 +20,6 @@ const Home = () => {
           <p className="text-gray-600">Nenhum alerta</p>
         </div>
       </div>
-
-      <div className="flex justify-center gap-4">
-        <button className="bg-blue-800 text-white px-6 py-2 rounded hover:bg-blue-900 transition">
-          ➕ Cadastrar Aluno
-        </button>
-        <button className="bg-blue-800 text-white px-6 py-2 rounded hover:bg-blue-900 transition">
-          📄 Ver Relatórios
-        </button>
-        <button className="bg-blue-800 text-white px-6 py-2 rounded hover:bg-blue-900 transition">
-          ⚙️ Ir para Configurações
-        </button>
-      </div>
     </div>
   );
 };
