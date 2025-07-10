@@ -6,7 +6,7 @@ const Dashboard = () => {
       <h2 className="text-3xl font-bold mb-6 text-center">📷 Dashboard - Câmera ao Vivo</h2>
 
       <p className="text-lg text-center text-gray-600 mb-10">
-        Aqui você verá a transmissão da câmera em tempo real.
+        Câmera ao vivo
       </p>
 
       <div className="flex justify-center">
