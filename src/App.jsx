@@ -7,20 +7,23 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import MainLayout from './layout/MainLayout';
 import Configuracoes from './pages/Configuracoes';
 
+
 function AppContent() {
   const location = useLocation();
-  const isPublicPage = location.pathname === '/' || location.pathname === '/cadastro';
+  const isPublicPage = ["/", "/login", "/cadastro"].includes(location.pathname);
+
 
   return (
     <div className="flex min-h-screen">
       {!isPublicPage && <MainLayout />}
       <div className="flex-1 bg-gray-50">
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/configuracoes" element={<Configuracoes />} />
+          
 
         </Routes>
       </div>

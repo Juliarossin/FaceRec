@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const alunosIniciais = [
   {
@@ -26,6 +27,20 @@ export default function Configuracoes() {
     telefone: "(00) 00000-0000",
     cpf: "000.000.000-00",
   });
+  const [camposEditaveis, setCamposEditaveis] = useState({
+    nome: false,
+    email: false,
+    senha: false,
+    confirmarSenha: false,
+    telefone: false,
+    cpf: false,
+  });
+
+  const navigate = useNavigate();
+
+  const handleSair = () => {
+    navigate("/login");
+  };
 
   const handleAtualizarFoto = (e, id) => {
     const file = e.target.files[0];
@@ -47,21 +62,13 @@ export default function Configuracoes() {
     );
   };
 
-  const handleChangeUsuario = (campo, valor) => {
-    setUsuario((prev) => ({ ...prev, [campo]: valor }));
-  };
-
-  const handleLogout = () => {
-    alert("Usuário saiu do sistema.");
-  };
-
   return (
-    <div className="w-full min-h-screen bg-gray-100 flex">
-      <div className="w-full bg-white min-h-screen p-6">
+    <div className="w-full min-h-screen bg-gray-100 flex justify-center">
+      <div className="w-full max-w-6xl bg-white shadow-md rounded p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-4xl font-bold text-gray-800">Configurações</h2>
           <button
-            onClick={handleLogout}
+            onClick={handleSair}
             className="bg-gray-100 px-4 py-1 rounded text-gray-500 hover:text-red-500 transition"
           >
             Sair
@@ -89,42 +96,29 @@ export default function Configuracoes() {
 
         {abaAtiva === "cadastro" && (
           <div className="bg-gray-50 p-6 rounded w-full flex flex-col gap-4">
-            <input
-              type="text"
-              value={usuario.nome}
-              onChange={(e) => handleChangeUsuario("nome", e.target.value)}
-              className="border rounded px-4 py-2"
-            />
-            <input
-              type="email"
-              value={usuario.email}
-              onChange={(e) => handleChangeUsuario("email", e.target.value)}
-              className="border rounded px-4 py-2"
-            />
-            <input
-              type="password"
-              placeholder="Nova Senha"
-              onChange={(e) => handleChangeUsuario("senha", e.target.value)}
-              className="border rounded px-4 py-2"
-            />
-            <input
-              type="password"
-              placeholder="Confirmar Nova Senha"
-              onChange={(e) => handleChangeUsuario("confirmarSenha", e.target.value)}
-              className="border rounded px-4 py-2"
-            />
-            <input
-              type="tel"
-              value={usuario.telefone}
-              onChange={(e) => handleChangeUsuario("telefone", e.target.value)}
-              className="border rounded px-4 py-2"
-            />
-            <input
-              type="text"
-              value={usuario.cpf}
-              onChange={(e) => handleChangeUsuario("cpf", e.target.value)}
-              className="border rounded px-4 py-2"
-            />
+            {Object.keys(usuario).map((campo) => (
+              <div className="flex items-center gap-2" key={campo}>
+                <input
+                  type={campo.toLowerCase().includes("senha") ? "password" : "text"}
+                  value={usuario[campo]}
+                  disabled={!camposEditaveis[campo]}
+                  onChange={(e) =>
+                    setUsuario({ ...usuario, [campo]: e.target.value })
+                  }
+                  className="border rounded px-4 py-2 flex-1"
+                />
+                <button
+                  onClick={() =>
+                    setCamposEditaveis({
+                      ...camposEditaveis,
+                      [campo]: true,
+                    })
+                  }
+                >
+                  ✏️
+                </button>
+              </div>
+            ))}
             <button className="bg-blue-500 text-white py-2 px-6 rounded w-fit mt-4">
               Salvar alterações
             </button>
@@ -169,6 +163,21 @@ export default function Configuracoes() {
                 />
               </div>
             ))}
+
+            <button
+              onClick={() => {
+                const novoAluno = {
+                  id: Date.now(),
+                  nome: "",
+                  turma: "",
+                  foto: "",
+                };
+                setAlunos([...alunos, novoAluno]);
+              }}
+              className="border border-dashed rounded p-4 text-center text-blue-500 hover:bg-blue-50 transition"
+            >
+              ➕ Adicionar Aluno
+            </button>
           </div>
         )}
       </div>
