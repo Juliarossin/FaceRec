@@ -18,7 +18,7 @@ function AppContent() {
       {!isPublicPage && <MainLayout />}
       <div className="flex-1 bg-gray-50">
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/Login" element={<Login />} /> {/* <- essa linha define a rota raiz */}
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
